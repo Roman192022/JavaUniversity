@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 
 /**
  * Concrete builder for creating a Concert event.
@@ -12,7 +13,7 @@ public class ConcertBuilder extends CulturalEventBuilder {
         culturalEvent.setEventLocation("Concert Hall ABC");
     }
 
-    public void buildDate(String date) {
+    public void buildDate(LocalDate date) {
         culturalEvent.setEventDate(date);
     }
 

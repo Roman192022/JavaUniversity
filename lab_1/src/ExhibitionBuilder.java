@@ -1,4 +1,4 @@
-
+import java.time.LocalDate;
 
 /**
  * Concrete builder for creating an Exhibition event.
@@ -12,7 +12,7 @@
         culturalEvent.setEventLocation("Art Gallery XYZ");
     }
 
-    public void buildDate(String date) {
+    public void buildDate(LocalDate date) {
         culturalEvent.setEventDate(date);
     }
 

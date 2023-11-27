@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Variant7Test" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-27T01:20:35" hostname="DESKTOP-KCSDTKT" time="0.003">
+  <properties/>
+  <testcase name="testIntegerTaskException" classname="Variant7Test" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -1,9 +1,12 @@
+import java.time.LocalDate;
+import java.util.Objects;
+
 public class Concert extends CulturalEvent {
     private String genre;
     private int numberOfPerformers;
     private String ticketPrice;
 
-    public Concert(String eventName, String eventLocation, String eventDate, String genre,
+    public Concert(String eventName, String eventLocation, LocalDate eventDate, String genre,
                    int numberOfPerformers, String ticketPrice) {
         super(eventName, eventLocation, eventDate);
         this.genre = genre;
@@ -11,10 +14,35 @@ public class Concert extends CulturalEvent {
         this.ticketPrice = ticketPrice;
     }
 
-    // Додаткові методи чи властивості, специфічні для концерту
-
     public void announceTicketPrice() {
         System.out.println("Ticket price for the concert: " + ticketPrice);
     }
+
+    @Override
+    public String toString() {
+        return "Concert{" +
+                "genre='" + genre + '\'' +
+                ", numberOfPerformers=" + numberOfPerformers +
+                ", ticketPrice='" + ticketPrice + '\'' +
+                "} " + super.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Concert concert = (Concert) o;
+        return numberOfPerformers == concert.numberOfPerformers &&
+                Objects.equals(genre, concert.genre) &&
+                Objects.equals(ticketPrice, concert.ticketPrice) &&
+                super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), genre, numberOfPerformers, ticketPrice);
+    }
 }
+
+
 

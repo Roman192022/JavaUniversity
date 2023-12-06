@@ -20,11 +20,11 @@ public class Exhibition extends CulturalEvent {
 
     @Override
     public String toString() {
-        return "Exhibition{" +
-                "theme='" + theme + '\'' +
-                ", curator='" + curator + '\'' +
-                ", numberOfArtworks=" + numberOfArtworks +
-                "} " + super.toString();
+        return "Exhibition{\n" +
+                "   theme='" + theme + ",\n" +
+                "   curator='" + curator + ",\n" +
+                "   numberOfArtworks=" + numberOfArtworks + ",\n" +
+                super.toString();
     }
 
     @Override

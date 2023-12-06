@@ -13,7 +13,34 @@ public class CulturalEvent {
         this.eventDate = eventDate;
     }
 
-    // Геттери та сеттери для властивостей події
+
+    // геттери
+    public String getEventName() {
+        return eventName;
+    }
+
+    public String getEventLocation() {
+        return eventLocation;
+    }
+    public LocalDate getEventDate() {
+        return eventDate;
+    }
+
+
+
+    // сеттери
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+    public void setEventLocation(String eventLocation) {
+        this.eventLocation = eventLocation;
+    }
+    public void setEventDate(LocalDate eventDate) {
+        this.eventDate = eventDate;
+    }
+
+
 
     public void displayEventInfo() {
         System.out.println("Event: " + eventName);
@@ -23,11 +50,9 @@ public class CulturalEvent {
 
     @Override
     public String toString() {
-        return "CulturalEvent{" +
-                "eventName='" + eventName + '\'' +
-                ", eventLocation='" + eventLocation + '\'' +
-                ", eventDate='" + eventDate + '\'' +
-                '}';
+        return  "   eventName='" + eventName + "',\n" +
+                "   eventLocation='" + eventLocation + "',\n" +
+                "   eventDate=" + eventDate + "\n}";
     }
 
     @Override

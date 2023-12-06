@@ -21,11 +21,11 @@ public class TheatrePerformance extends CulturalEvent {
 
     @Override
     public String toString() {
-        return "TheatrePerformance{" +
-                "playTitle='" + playTitle + '\'' +
-                ", durationInMinutes=" + durationInMinutes +
-                ", mainActor='" + mainActor + '\'' +
-                "} " + super.toString();
+        return "TheatrePerformance{\n" +
+                "   playTitle='" + playTitle + ",\n" +
+                "   durationInMinutes=" + durationInMinutes + ",\n" +
+                "   mainActor='" + mainActor + ",\n" +
+                super.toString();
     }
 
     @Override

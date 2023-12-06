@@ -8,23 +8,24 @@ public class Person {
     private int age;
     private List<CulturalEvent> attendedEvents;
 
-    private Person(Builder builder) {
+    private Person(PersonBuilder builder) {
         this.name = builder.name;
         this.age = builder.age;
-        this.attendedEvents = builder.attendedEvents;
+        this.attendedEvents = new ArrayList<>(builder.attendedEvents);
     }
 
-    public static class Builder {
+
+    public static class PersonBuilder {
         private String name;
         private int age;
         private List<CulturalEvent> attendedEvents = new ArrayList<>();
 
-        public Builder(String name, int age) {
+        public PersonBuilder(String name, int age) {
             this.name = name;
             this.age = age;
         }
 
-        public Builder addAttendedEvent(CulturalEvent event) {
+        public PersonBuilder addAttendedEvent(CulturalEvent event) {
             attendedEvents.add(event);
             return this;
         }
@@ -33,6 +34,8 @@ public class Person {
             return new Person(this);
         }
     }
+
+
 
     public String getName() {
         return name;
@@ -46,14 +49,29 @@ public class Person {
         return new ArrayList<>(attendedEvents);
     }
 
+
     @Override
     public String toString() {
-        return "Person {\n" +
-                "name='" + name + "'" + "," + '\n' +
-                "age=" + age + "," + '\n' +
-                "attendedEvents=" + attendedEvents + '\n' +
-                '}';
+        StringBuilder builder = new StringBuilder();
+        builder.append("Person {\n");
+        builder.append("   name='").append(name).append("',\n");
+        builder.append("   age=").append(age).append(",\n");
+
+        builder.append("   attendedEvents=[");
+        if (!attendedEvents.isEmpty()) {
+            builder.append('\n');
+            for (CulturalEvent event : attendedEvents) {
+                builder.append("      '").append(event.getEventName()).append("',\n");
+            }
+            builder.deleteCharAt(builder.length() - 2);  // Видалення останньої коми
+        }
+        builder.append("   ]\n");
+
+        builder.append('}');
+        return builder.toString();
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -71,3 +89,4 @@ public class Person {
         return Objects.hash(name, age, attendedEvents);
     }
 }
+

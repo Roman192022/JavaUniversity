@@ -4,10 +4,10 @@ import java.util.Objects;
 public class Concert extends CulturalEvent {
     private String genre;
     private int numberOfPerformers;
-    private String ticketPrice;
+    private int ticketPrice;
 
     public Concert(String eventName, String eventLocation, LocalDate eventDate, String genre,
-                   int numberOfPerformers, String ticketPrice) {
+                   int numberOfPerformers, int ticketPrice) {
         super(eventName, eventLocation, eventDate);
         this.genre = genre;
         this.numberOfPerformers = numberOfPerformers;
@@ -20,11 +20,11 @@ public class Concert extends CulturalEvent {
 
     @Override
     public String toString() {
-        return "Concert{" +
-                "genre='" + genre + '\'' +
-                ", numberOfPerformers=" + numberOfPerformers +
-                ", ticketPrice='" + ticketPrice + '\'' +
-                "} " + super.toString();
+        return "Concert{" + '\n' +
+                "   genre='" + genre + "',\n" +
+                "   numberOfPerformers=" + numberOfPerformers + ",\n" +
+                "   ticketPrice=" + ticketPrice + "\n" +
+                super.toString();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class Concert extends CulturalEvent {
         Concert concert = (Concert) o;
         return numberOfPerformers == concert.numberOfPerformers &&
                 Objects.equals(genre, concert.genre) &&
-                Objects.equals(ticketPrice, concert.ticketPrice) &&
+                ticketPrice == concert.ticketPrice &&
                 super.equals(o);
     }
 

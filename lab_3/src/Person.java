@@ -1,28 +1,33 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.time.LocalDate;
+import java.time.Period;
 
 
 public class Person {
     private String name;
-    private int age;
+    private LocalDate dateOfBirth;
     private List<CulturalEvent> attendedEvents;
+
 
     private Person(PersonBuilder builder) {
         this.name = builder.name;
-        this.age = builder.age;
+        this.dateOfBirth = builder.dateOfBirth;
         this.attendedEvents = new ArrayList<>(builder.attendedEvents);
     }
 
-
     public static class PersonBuilder {
         private String name;
-        private int age;
+        private LocalDate dateOfBirth;
+
         private List<CulturalEvent> attendedEvents = new ArrayList<>();
 
-        public PersonBuilder(String name, int age) {
+
+        public PersonBuilder(String name, LocalDate dateOfBirth) {
+
             this.name = name;
-            this.age = age;
+            this.dateOfBirth = dateOfBirth;
         }
 
         public PersonBuilder addAttendedEvent(CulturalEvent event) {
@@ -31,6 +36,7 @@ public class Person {
         }
 
         public Person build() {
+
             return new Person(this);
         }
     }
@@ -38,14 +44,17 @@ public class Person {
 
 
     public String getName() {
+
         return name;
     }
 
-    public int getAge() {
-        return age;
+    public LocalDate getDateOfBirth() {
+
+        return dateOfBirth;
     }
 
     public List<CulturalEvent> getAttendedEvents() {
+
         return new ArrayList<>(attendedEvents);
     }
 
@@ -55,7 +64,7 @@ public class Person {
         StringBuilder builder = new StringBuilder();
         builder.append("Person {\n");
         builder.append("   name='").append(name).append("',\n");
-        builder.append("   age=").append(age).append(",\n");
+        builder.append("   date of birth=").append(dateOfBirth).append(",\n");
 
         builder.append("   attendedEvents=[");
         if (!attendedEvents.isEmpty()) {
@@ -78,7 +87,7 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return age == person.age &&
+        return dateOfBirth == person.dateOfBirth &&
                 Objects.equals(name, person.name) &&
                 Objects.equals(attendedEvents, person.attendedEvents);
     }
@@ -86,6 +95,8 @@ public class Person {
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, age, attendedEvents);
+
+        return Objects.hash(name, dateOfBirth, attendedEvents);
     }
 }
+

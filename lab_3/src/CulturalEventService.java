@@ -1,19 +1,30 @@
-import java.util.Comparator;
 import java.util.List;
 
 public interface CulturalEventService {
 
-    // Сортування колекції за замовчуванням (за допомогою Comparable).
+    // Метод сортування за замовчуванням
     <T extends Comparable<? super T>> void sortByDefault(List<T> events);
 
-    // Сортування колекції за допомогою вказаного компаратора.
-    <T> void sortByComparator(List<T> events, Comparator<T> comparator);
+    // Метод сортування за компаратором
+    <T> void sortByComparator(List<T> events, java.util.Comparator<T> comparator);
 
-    // Сортування колекції за назвою події в алфавітним порядком (за допомогою методу compareTo у CulturalEvent).
+    // Метод сортування за назвою події в алфавітному порядку
     <T extends CulturalEvent> List<T> sortAlphabetically(List<T> events);
 
-    // Фільтрування колекції за певною умовою, заданою предикатом.
-    <T> List<T> filterByCondition(List<T> events, java.util.function.Predicate<T> condition);
+    // Метод сортування за давністю подій
+    <T extends CulturalEvent> void sortByEventAge(List<T> events);
+
+    // Метод фільтрування колекції person за вказаним діапазоном віку людини
+    List<Person> filterByAgeRange(List<Person> persons, int minAge, int maxAge);
+
+    // Метод фільтрування подій, які відбулися після певної дати
+    <T extends CulturalEvent> List<T> filterByDate(List<T> events, java.time.LocalDate date);
+
+    // Метод фільтрування подій за назвою події
+    <T extends CulturalEvent> List<T> filterByName(List<T> events, String eventName);
+
+    // Метод, який повертає список людей, які відвідали певну подію
+    <T extends CulturalEvent> List<Person> getAttendees(List<Person> persons, T event);
 }
 
 

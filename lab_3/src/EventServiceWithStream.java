@@ -32,12 +32,7 @@ public class EventServiceWithStream implements CulturalEventService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<CulturalEvent> removeOutdatedEvents(LocalDate currentDate) {
-        return events.stream()
-                .filter(event -> event.getEventDate().isAfter(currentDate))
-                .collect(Collectors.toList());
-    }
+
 
     @Override
     public List<CulturalEvent> searchEventsAfterDate(LocalDate date) {

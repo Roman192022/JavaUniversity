@@ -11,8 +11,6 @@ public interface CulturalEventService {
 
     List<CulturalEvent> sortEventsByDate();
 
-    List<CulturalEvent> removeOutdatedEvents(LocalDate currentDate);
-
     List<CulturalEvent> searchEventsAfterDate(LocalDate date);
 
 

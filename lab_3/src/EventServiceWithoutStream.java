@@ -38,16 +38,7 @@ public class EventServiceWithoutStream implements CulturalEventService {
         return result;
     }
 
-    @Override
-    public List<CulturalEvent> removeOutdatedEvents(LocalDate currentDate) {
-        List<CulturalEvent> result = new ArrayList<>();
-        for (CulturalEvent event : events) {
-            if (event.getEventDate().isAfter(currentDate)) {
-                result.add(event);
-            }
-        }
-        return result;
-    }
+
 
     @Override
     public List<CulturalEvent> searchEventsAfterDate(LocalDate date) {

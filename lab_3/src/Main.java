@@ -70,13 +70,6 @@ public class Main {
         System.out.println("With Stream API: " + sortedEventsDateWithStream);
         System.out.println("Without Stream API: " + sortedEventsDateWithoutStream);
 
-        // Видалення застарілих подій
-        System.out.println("\nRemove outdated events:");
-        LocalDate currentDate = LocalDate.now().plusDays(17);
-        List<CulturalEvent> updatedEventsWithStream = serviceWithStream.removeOutdatedEvents(currentDate);
-        List<CulturalEvent> updatedEventsWithoutStream = serviceWithoutStream.removeOutdatedEvents(currentDate);
-        System.out.println("With Stream API: " + updatedEventsWithStream);
-        System.out.println("Without Stream API: " + updatedEventsWithoutStream);
 
         // Пошук подій, які відбудуться після певної дати
         System.out.println("\nSearch events after a date:");

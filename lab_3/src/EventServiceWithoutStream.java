@@ -3,10 +3,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public class EventServiceWithoutStream implements CulturalEventService {
 
+    private List<CulturalEvent> events;
+
+    EventServiceWithoutStream(List<CulturalEvent> array) {
+
+        events = array;
+    }
+
     @Override
-    public List<CulturalEvent> searchEventsByName(List<CulturalEvent> events, String eventName) {
+    public List<CulturalEvent> searchEventsByName(String eventName) {
         List<CulturalEvent> result = new ArrayList<>();
         for (CulturalEvent event : events) {
             if (event.getEventName().equals(eventName)) {
@@ -16,25 +24,22 @@ public class EventServiceWithoutStream implements CulturalEventService {
         return result;
     }
 
+    public List<CulturalEvent> sortEventsByEventName() {
+        List<CulturalEvent> result = events;
+        Collections.sort(result);
+        return result;
+    }
+
+
     @Override
-    public List<Person> getPeopleWhoAttendedEvent(List<Person> people, CulturalEvent event) {
-        List<Person> result = new ArrayList<>();
-        for (Person person : people) {
-            if (person.getAttendedEvents().contains(event)) {
-                result.add(person);
-            }
-        }
+    public List<CulturalEvent> sortEventsByDate() {
+        List<CulturalEvent> result = events;
+        Collections.sort(result);
         return result;
     }
 
     @Override
-    public List<CulturalEvent> sortEventsByDate(List<CulturalEvent> events) {
-        Collections.sort(events);
-        return events;
-    }
-
-    @Override
-    public List<CulturalEvent> removeOutdatedEvents(List<CulturalEvent> events, LocalDate currentDate) {
+    public List<CulturalEvent> removeOutdatedEvents(LocalDate currentDate) {
         List<CulturalEvent> result = new ArrayList<>();
         for (CulturalEvent event : events) {
             if (event.getEventDate().isAfter(currentDate)) {
@@ -45,7 +50,7 @@ public class EventServiceWithoutStream implements CulturalEventService {
     }
 
     @Override
-    public List<CulturalEvent> searchEventsAfterDate(List<CulturalEvent> events, LocalDate date) {
+    public List<CulturalEvent> searchEventsAfterDate(LocalDate date) {
         List<CulturalEvent> result = new ArrayList<>();
         for (CulturalEvent event : events) {
             if (event.getEventDate().isAfter(date)) {
@@ -54,6 +59,15 @@ public class EventServiceWithoutStream implements CulturalEventService {
         }
         return result;
     }
+
+
+
+
+
+
+
+
+
 }
 
 

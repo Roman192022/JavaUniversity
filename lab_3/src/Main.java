@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Створюємо 6 реалістичних об'єктів культурних подій
+        // Створення 6 об'єктів культурних подій
         CulturalEvent concert1 = new Concert("Rock Concert", "Music Hall", LocalDate.now().plusDays(10), "Rock", 5, 50);
         CulturalEvent exhibition1 = new Exhibition("Modern Art Exhibition", "Art Gallery", LocalDate.now().plusDays(15), "Modern Art", "Curator1", 100);
         CulturalEvent theatrePerformance1 = new TheatrePerformance("Shakespearean Play", "City Theatre", LocalDate.now().plusDays(20), "Hamlet", 120, "John Doe");
@@ -13,16 +13,16 @@ public class Main {
         CulturalEvent exhibition2 = new Exhibition("Impressionist Art Exhibition", "Museum of Fine Arts", LocalDate.now().plusDays(18), "Impressionism", "Curator2", 80);
         CulturalEvent theatrePerformance2 = new TheatrePerformance("Comedy Play", "Comedy Theatre", LocalDate.now().plusDays(25), "The Comedy of Errors", 90, "Jane Doe");
 
-        // Створюємо список культурних подій
-        List<CulturalEvent> events = new ArrayList<>();
-        events.add(concert1);
-        events.add(exhibition1);
-        events.add(theatrePerformance1);
-        events.add(concert2);
-        events.add(exhibition2);
-        events.add(theatrePerformance2);
+        // Створення списку культурних подій
+        List<CulturalEvent> culturalEvents = new ArrayList<>();
+        culturalEvents.add(concert1);
+        culturalEvents.add(exhibition1);
+        culturalEvents.add(theatrePerformance1);
+        culturalEvents.add(concert2);
+        culturalEvents.add(exhibition2);
+        culturalEvents.add(theatrePerformance2);
 
-        // Створюємо 4 реалістичні об'єкти Person
+        // Створення 4 об'єкти Person
         Person person1 = new Person.PersonBuilder("John", LocalDate.of(1990, 5, 15))
                 .addAttendedEvent(concert1)
                 .addAttendedEvent(exhibition1)
@@ -44,46 +44,45 @@ public class Main {
                 .addAttendedEvent(exhibition2)
                 .build();
 
-        // Створюємо інстанції сервісних класів
-        CulturalEventService serviceWithStream = new EventServiceWithStream();
-        CulturalEventService serviceWithoutStream = new EventServiceWithoutStream();
 
-        // Проводимо тести
+        CulturalEventService serviceWithStream = new EventServiceWithStream(culturalEvents);
+        CulturalEventService serviceWithoutStream = new EventServiceWithoutStream(culturalEvents);
+
 
         // Пошук подій за назвою
         System.out.println("Search events by name:");
-        List<CulturalEvent> searchResultWithStream = serviceWithStream.searchEventsByName(events, "Rock Concert");
-        List<CulturalEvent> searchResultWithoutStream = serviceWithoutStream.searchEventsByName(events, "Rock Concert");
+        List<CulturalEvent> searchResultWithStream = serviceWithStream.searchEventsByName("Rock Concert");
+        List<CulturalEvent> searchResultWithoutStream = serviceWithoutStream.searchEventsByName("Rock Concert");
         System.out.println("With Stream API: " + searchResultWithStream);
         System.out.println("Without Stream API: " + searchResultWithoutStream);
 
-        // Отримання людей, які відвідали певну подію
-        System.out.println("\nPeople who attended an event:");
-        List<Person> peopleWithStream = serviceWithStream.getPeopleWhoAttendedEvent(List.of(person1, person2, person3, person4), concert1);
-        List<Person> peopleWithoutStream = serviceWithoutStream.getPeopleWhoAttendedEvent(List.of(person1, person2, person3, person4), concert1);
-        System.out.println("With Stream API: " + peopleWithStream);
-        System.out.println("Without Stream API: " + peopleWithoutStream);
+        // Сортування подій за назвою
+        System.out.println("\nSort events by name:");
+        List<CulturalEvent> sortedEventsNameWithStream = serviceWithStream.sortEventsByEventName();
+        List<CulturalEvent> sortedEventsNameWithoutStream = serviceWithoutStream.sortEventsByEventName();
+        System.out.println("With Stream API: " + sortedEventsNameWithStream);
+        System.out.println("Without Stream API: " + sortedEventsNameWithoutStream);
 
         // Сортування подій за датою
         System.out.println("\nSort events by date:");
-        List<CulturalEvent> sortedEventsWithStream = serviceWithStream.sortEventsByDate(events);
-        List<CulturalEvent> sortedEventsWithoutStream = serviceWithoutStream.sortEventsByDate(events);
-        System.out.println("With Stream API: " + sortedEventsWithStream);
-        System.out.println("Without Stream API: " + sortedEventsWithoutStream);
+        List<CulturalEvent> sortedEventsDateWithStream = serviceWithStream.sortEventsByDate();
+        List<CulturalEvent> sortedEventsDateWithoutStream = serviceWithoutStream.sortEventsByDate();
+        System.out.println("With Stream API: " + sortedEventsDateWithStream);
+        System.out.println("Without Stream API: " + sortedEventsDateWithoutStream);
 
         // Видалення застарілих подій
         System.out.println("\nRemove outdated events:");
         LocalDate currentDate = LocalDate.now().plusDays(17);
-        List<CulturalEvent> updatedEventsWithStream = serviceWithStream.removeOutdatedEvents(events, currentDate);
-        List<CulturalEvent> updatedEventsWithoutStream = serviceWithoutStream.removeOutdatedEvents(events, currentDate);
+        List<CulturalEvent> updatedEventsWithStream = serviceWithStream.removeOutdatedEvents(currentDate);
+        List<CulturalEvent> updatedEventsWithoutStream = serviceWithoutStream.removeOutdatedEvents(currentDate);
         System.out.println("With Stream API: " + updatedEventsWithStream);
         System.out.println("Without Stream API: " + updatedEventsWithoutStream);
 
         // Пошук подій, які відбудуться після певної дати
         System.out.println("\nSearch events after a date:");
         LocalDate searchDate = LocalDate.now().plusDays(15);
-        List<CulturalEvent> eventsAfterDateWithStream = serviceWithStream.searchEventsAfterDate(events, searchDate);
-        List<CulturalEvent> eventsAfterDateWithoutStream = serviceWithoutStream.searchEventsAfterDate(events, searchDate);
+        List<CulturalEvent> eventsAfterDateWithStream = serviceWithStream.searchEventsAfterDate(searchDate);
+        List<CulturalEvent> eventsAfterDateWithoutStream = serviceWithoutStream.searchEventsAfterDate(searchDate);
         System.out.println("With Stream API: " + eventsAfterDateWithStream);
         System.out.println("Without Stream API: " + eventsAfterDateWithoutStream);
     }

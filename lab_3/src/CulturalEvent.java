@@ -16,10 +16,10 @@ public class CulturalEvent implements Comparable<CulturalEvent> {
 
     @Override
     public int compareTo(CulturalEvent other) {
-        return this.eventDate.compareTo(other.eventDate);
+        return this.eventName.compareTo(other.eventName);
     }
 
-    public static Comparator<CulturalEvent> EventDateComparator = Comparator.comparing(CulturalEvent::getEventDate);
+    public static Comparator<CulturalEvent> EventDateComparator = Comparator.comparing(CulturalEvent::getEventName);
 
     public String getEventName() {
         return eventName;

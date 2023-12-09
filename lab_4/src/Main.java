@@ -16,7 +16,7 @@ public class Main {
             System.out.println("");
 
             // Приклад невдалої валідації (не допустима дата народження)
-            Person person2 = new Person.PersonBuilder("Alice", LocalDate.of(2024, 1, 11), "alice_smith@company.org")
+            Person person2 = new Person.PersonBuilder("", LocalDate.of(2024, 1, 11), "alice_smith@company.org")
                     .build();
 
             System.out.println(person2);

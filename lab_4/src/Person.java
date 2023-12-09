@@ -12,15 +12,13 @@ public class Person {
     private LocalDate dateOfBirth;
     private String email;
     private List<CulturalEvent> attendedEvents;
-    private List<String> validationErrors; // Список для зберігання повідомлень про виключення
-
 
     private Person(PersonBuilder builder) {
         this.name = builder.name;
         this.dateOfBirth = builder.dateOfBirth;
         this.email = builder.email;
         this.attendedEvents = new ArrayList<>(builder.attendedEvents);
-        this.validationErrors = builder.validationErrors;
+
     }
 
     public static class PersonBuilder {
@@ -30,21 +28,12 @@ public class Person {
         private String email;
         private List<CulturalEvent> attendedEvents = new ArrayList<>();
 
-        private List<String> validationErrors = new ArrayList<>(); // Список для зберігання повідомлень про виключення
-
 
         public PersonBuilder(String name, LocalDate dateOfBirth, String email) {
-
-
-            validateName(name);
-            validateDateOfBirth(dateOfBirth);
-            validateEmail(email);
 
             this.name = name;
             this.dateOfBirth = dateOfBirth;
             this.email = email;
-
-
 
         }
 
@@ -55,37 +44,51 @@ public class Person {
         }
 
         public Person build() {
+            List<String> validationErrors = new ArrayList<>();
+
+            try {
+                validateName(this.name);
+            } catch (IllegalArgumentException e) {validationErrors.add(e.getMessage());}
+
+            try {
+                validateEmail(this.email);
+            } catch (IllegalArgumentException e) {validationErrors.add(e.getMessage());}
+
+            try {
+                validateDateOfBirth(this.dateOfBirth);
+            } catch (IllegalArgumentException e) {validationErrors.add(e.getMessage());}
+
+
+
+
             if (!validationErrors.isEmpty()) {
                 // Виведення всіх повідомлень про виключення
-                for (String error : validationErrors) {
-                    System.out.println("Validation Error: " + error);
-                }
-                System.out.println("");
-                // Повернення null, оскільки не можна створити об'єкт Person
-                return null;
+                throw new IllegalArgumentException(String.join( "\n", validationErrors));
+
             }
 
             return new Person(this);
         }
 
+
+
         private void validateName(String name) {
             if (name == null || name.isEmpty()) {
-                validationErrors.add("Name cannot be null or empty");
+               throw new IllegalArgumentException("Invalid name!");
             }
         }
 
 
         // Валідація поля dateOfBirth
         private void validateDateOfBirth(LocalDate dateOfBirth) {
+
             LocalDate currentDate = LocalDate.now();
-            try {
-                Objects.requireNonNull(dateOfBirth);
-            } catch (Exception e) {
-                validationErrors.add("Date of birth cannot be null.");
+            if (dateOfBirth == null) {
+                throw new IllegalArgumentException("Date of birth cannot be null!");
             }
 
             if (dateOfBirth.isAfter(currentDate)) {
-                validationErrors.add("Date of birth cannot be in the future.");
+                throw new IllegalArgumentException("Date of birth cannot be in the future!");
             }
 
             final int MINIMUM_AGE = 6;
@@ -93,11 +96,11 @@ public class Person {
 
             int age = Period.between(dateOfBirth, currentDate).getYears();
             if (age < MINIMUM_AGE) {
-                validationErrors.add("Person is too young.");
+                throw new IllegalArgumentException("Person is too young!");
             }
 
             if (age > MAXIMUM_AGE) {
-                validationErrors.add("Person is too old.");
+                throw new IllegalArgumentException("Person is too old!");
             }
         }
 
@@ -108,13 +111,13 @@ public class Person {
             Matcher matcher = pattern.matcher(email);
 
             if (!matcher.matches()) {
-                validationErrors.add("Invalid email format.");
+                throw new IllegalArgumentException("Invalid email format!");
             }
         }
 
         private void validateEvent(CulturalEvent event) {
             if (event == null) {
-                validationErrors.add("Attended event cannot be null");
+                throw new IllegalArgumentException("Attended event cannot be null!");
             }
         }
     }

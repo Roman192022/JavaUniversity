@@ -1,107 +1,90 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
-        // Створення об'єктів
-        Concert concert1 = new Concert("Rock Night", "Main Arena", LocalDate.of(2023, 8, 15), "Rock", 5, 40);
-        Concert concert2 = new Concert("Jazz Fusion", "Jazz Club", LocalDate.of(2023, 12, 12), "Jazz", 4, 35);
-        Concert concert3 = new Concert("Pop Extravaganza", "Pop Stadium", LocalDate.of(2023, 11, 5), "Pop", 6, 45);
+        // Створюємо 6 реалістичних об'єктів культурних подій
+        CulturalEvent concert1 = new Concert("Rock Concert", "Music Hall", LocalDate.now().plusDays(10), "Rock", 5, 50);
+        CulturalEvent exhibition1 = new Exhibition("Modern Art Exhibition", "Art Gallery", LocalDate.now().plusDays(15), "Modern Art", "Curator1", 100);
+        CulturalEvent theatrePerformance1 = new TheatrePerformance("Shakespearean Play", "City Theatre", LocalDate.now().plusDays(20), "Hamlet", 120, "John Doe");
 
-        Exhibition exhibition1 = new Exhibition("Impressionist Art", "Art Museum", LocalDate.of(2023, 7, 25), "Impressionism", "Jane Doe", 80);
-        Exhibition exhibition2 = new Exhibition("Photography Expo", "Photo Gallery", LocalDate.of(2023, 12, 30), "Photography", "Alex Johnson", 120);
-        Exhibition exhibition3 = new Exhibition("Modern Sculptures", "Sculpture Center", LocalDate.of(2023, 9, 10), "Sculpture", "John Smith", 50);
+        CulturalEvent concert2 = new Concert("Jazz Night", "Jazz Club", LocalDate.now().plusDays(12), "Jazz", 4, 40);
+        CulturalEvent exhibition2 = new Exhibition("Impressionist Art Exhibition", "Museum of Fine Arts", LocalDate.now().plusDays(18), "Impressionism", "Curator2", 80);
+        CulturalEvent theatrePerformance2 = new TheatrePerformance("Comedy Play", "Comedy Theatre", LocalDate.now().plusDays(25), "The Comedy of Errors", 90, "Jane Doe");
 
-        TheatrePerformance theatrePerformance1 = new TheatrePerformance("Classic Play", "City Theatre", LocalDate.of(2023, 6, 30), "Romeo and Juliet", 150, "Emily Williams");
-        TheatrePerformance theatrePerformance2 = new TheatrePerformance("Comedy Show", "Comedy Club", LocalDate.of(2023, 11, 20), "Laugh Out Loud", 120, "Mike Johnson");
-        TheatrePerformance theatrePerformance3 = new TheatrePerformance("Mystery Drama", "Mystery Theater", LocalDate.of(2023, 10, 5), "Secrets Unveiled", 130, "Sophia Anderson");
-
-        // Створення списку подій
+        // Створюємо список культурних подій
         List<CulturalEvent> events = new ArrayList<>();
         events.add(concert1);
-        events.add(concert2);
-        events.add(concert3);
         events.add(exhibition1);
-        events.add(exhibition2);
-        events.add(exhibition3);
         events.add(theatrePerformance1);
+        events.add(concert2);
+        events.add(exhibition2);
         events.add(theatrePerformance2);
-        events.add(theatrePerformance3);
 
-        // Створення об'єктів осіб
-        Person person1 = new Person.PersonBuilder("Alice", LocalDate.of(1990, 5, 15))
+        // Створюємо 4 реалістичні об'єкти Person
+        Person person1 = new Person.PersonBuilder("John", LocalDate.of(1990, 5, 15))
                 .addAttendedEvent(concert1)
-                .addAttendedEvent(exhibition2)
-                .addAttendedEvent(theatrePerformance3)
-                .build();
-
-        Person person2 = new Person.PersonBuilder("Bob", LocalDate.of(1985, 9, 3))
                 .addAttendedEvent(exhibition1)
-                .addAttendedEvent(theatrePerformance1)
-                .build();
-
-        Person person3 = new Person.PersonBuilder("Charlie", LocalDate.of(2000, 3, 22))
-                .addAttendedEvent(concert3)
                 .addAttendedEvent(theatrePerformance2)
                 .build();
 
-        Person person4 = new Person.PersonBuilder("David", LocalDate.of(1998, 7, 10))
+        Person person2 = new Person.PersonBuilder("Jane", LocalDate.of(1985, 8, 22))
                 .addAttendedEvent(concert2)
-                .addAttendedEvent(exhibition3)
                 .addAttendedEvent(theatrePerformance1)
                 .build();
 
-        // Створення списку осіб
-        List<Person> persons = new ArrayList<>();
-        persons.add(person1);
-        persons.add(person2);
-        persons.add(person3);
-        persons.add(person4);
+        Person person3 = new Person.PersonBuilder("Bob", LocalDate.of(1992, 3, 10))
+                .addAttendedEvent(exhibition2)
+                .addAttendedEvent(theatrePerformance1)
+                .build();
 
-        // Використання сервісних методів
-        CulturalEventService serviceWithoutStream = new EventServiceWithoutStream();
+        Person person4 = new Person.PersonBuilder("Alice", LocalDate.of(1988, 12, 5))
+                .addAttendedEvent(concert1)
+                .addAttendedEvent(exhibition2)
+                .build();
+
+        // Створюємо інстанції сервісних класів
         CulturalEventService serviceWithStream = new EventServiceWithStream();
+        CulturalEventService serviceWithoutStream = new EventServiceWithoutStream();
 
-        // Сортування за замовчуванням (Comparable) без Stream API
-        serviceWithoutStream.sortByDefault(events);
-        System.out.println("Sorted by default without Stream API:\n" + events);
-        System.out.println("\n");
+        // Проводимо тести
 
-        // Сортування за компаратором без Stream API
-        serviceWithoutStream.sortByComparator(events, Comparator.comparing(CulturalEvent::getEventDate));
-        System.out.println("Sorted by event date without Stream API:\n" + events);
-        System.out.println("\n");
+        // Пошук подій за назвою
+        System.out.println("Search events by name:");
+        List<CulturalEvent> searchResultWithStream = serviceWithStream.searchEventsByName(events, "Rock Concert");
+        List<CulturalEvent> searchResultWithoutStream = serviceWithoutStream.searchEventsByName(events, "Rock Concert");
+        System.out.println("With Stream API: " + searchResultWithStream);
+        System.out.println("Without Stream API: " + searchResultWithoutStream);
 
-        // Сортування за алфавітним порядком (за назвою) без Stream API
-        List<CulturalEvent> eventsAlphabeticallyWithoutStream = serviceWithoutStream.sortAlphabetically(events);
-        System.out.println("Sorted alphabetically without Stream API:\n" + eventsAlphabeticallyWithoutStream);
-        System.out.println("\n");
+        // Отримання людей, які відвідали певну подію
+        System.out.println("\nPeople who attended an event:");
+        List<Person> peopleWithStream = serviceWithStream.getPeopleWhoAttendedEvent(List.of(person1, person2, person3, person4), concert1);
+        List<Person> peopleWithoutStream = serviceWithoutStream.getPeopleWhoAttendedEvent(List.of(person1, person2, person3, person4), concert1);
+        System.out.println("With Stream API: " + peopleWithStream);
+        System.out.println("Without Stream API: " + peopleWithoutStream);
 
-        // Сортування за давністю подій з використанням Stream API
-        serviceWithStream.sortByEventAge(events);
-        System.out.println("Sorted by event age with Stream API:\n" + events);
-        System.out.println("\n");
+        // Сортування подій за датою
+        System.out.println("\nSort events by date:");
+        List<CulturalEvent> sortedEventsWithStream = serviceWithStream.sortEventsByDate(events);
+        List<CulturalEvent> sortedEventsWithoutStream = serviceWithoutStream.sortEventsByDate(events);
+        System.out.println("With Stream API: " + sortedEventsWithStream);
+        System.out.println("Without Stream API: " + sortedEventsWithoutStream);
 
-        // Фільтрація за діапазоном віку осіб
-        List<Person> filteredPersonsByAge = serviceWithStream.filterByAgeRange(persons, 25, 35);
-        System.out.println("Filtered persons by age with Stream API (25-35 years old):\n" + filteredPersonsByAge);
-        System.out.println("\n");
+        // Видалення застарілих подій
+        System.out.println("\nRemove outdated events:");
+        LocalDate currentDate = LocalDate.now().plusDays(17);
+        List<CulturalEvent> updatedEventsWithStream = serviceWithStream.removeOutdatedEvents(events, currentDate);
+        List<CulturalEvent> updatedEventsWithoutStream = serviceWithoutStream.removeOutdatedEvents(events, currentDate);
+        System.out.println("With Stream API: " + updatedEventsWithStream);
+        System.out.println("Without Stream API: " + updatedEventsWithoutStream);
 
-        // Фільтрація подій, які відбулися після певної дати
-        List<CulturalEvent> filteredEventsByDate = serviceWithStream.filterByDate(events, LocalDate.of(2023, 9, 1));
-        System.out.println("Filtered events by date with Stream API (after 2023-09-01):\n" + filteredEventsByDate);
-        System.out.println("\n");
-
-        // Фільтрація подій за назвою події
-        List<CulturalEvent> filteredEventsByName = serviceWithStream.filterByName(events, "Rock Night");
-        System.out.println("Filtered events by name with Stream API (Rock Night):\n" + filteredEventsByName);
-        System.out.println("\n");
-
-        // Отримання списку людей, які відвідали певну подію
-        List<Person> attendees = serviceWithStream.getAttendees(persons, concert1);
-        System.out.println("Attendees of the concert Rock Night:\n" + attendees);
+        // Пошук подій, які відбудуться після певної дати
+        System.out.println("\nSearch events after a date:");
+        LocalDate searchDate = LocalDate.now().plusDays(15);
+        List<CulturalEvent> eventsAfterDateWithStream = serviceWithStream.searchEventsAfterDate(events, searchDate);
+        List<CulturalEvent> eventsAfterDateWithoutStream = serviceWithoutStream.searchEventsAfterDate(events, searchDate);
+        System.out.println("With Stream API: " + eventsAfterDateWithStream);
+        System.out.println("Without Stream API: " + eventsAfterDateWithoutStream);
     }
 }

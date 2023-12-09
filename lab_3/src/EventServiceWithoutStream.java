@@ -1,64 +1,60 @@
-import java.util.Comparator;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class EventServiceWithoutStream implements CulturalEventService {
 
     @Override
-    public <T> void sortByComparator(List<T> events, Comparator<T> comparator) {
-        events.sort(comparator);
+    public List<CulturalEvent> searchEventsByName(List<CulturalEvent> events, String eventName) {
+        List<CulturalEvent> result = new ArrayList<>();
+        for (CulturalEvent event : events) {
+            if (event.getEventName().equals(eventName)) {
+                result.add(event);
+            }
+        }
+        return result;
     }
 
     @Override
-    public <T extends CulturalEvent> List<T> sortAlphabetically(List<T> events) {
-        events.sort(Comparator.comparing(CulturalEvent::getEventName));
+    public List<Person> getPeopleWhoAttendedEvent(List<Person> people, CulturalEvent event) {
+        List<Person> result = new ArrayList<>();
+        for (Person person : people) {
+            if (person.getAttendedEvents().contains(event)) {
+                result.add(person);
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<CulturalEvent> sortEventsByDate(List<CulturalEvent> events) {
+        Collections.sort(events);
         return events;
     }
 
     @Override
-    public <T extends Comparable<? super T>> void sortByDefault(List<T> events) {
-        events.sort(Comparator.naturalOrder());
+    public List<CulturalEvent> removeOutdatedEvents(List<CulturalEvent> events, LocalDate currentDate) {
+        List<CulturalEvent> result = new ArrayList<>();
+        for (CulturalEvent event : events) {
+            if (event.getEventDate().isAfter(currentDate)) {
+                result.add(event);
+            }
+        }
+        return result;
     }
 
     @Override
-    public <T extends CulturalEvent> void sortByEventAge(List<T> events) {
-        events.sort(Comparator.comparing(CulturalEvent::getEventDate).reversed());
-    }
-
-    @Override
-    public List<Person> filterByAgeRange(List<Person> persons, int minAge, int maxAge) {
-        // Використовуємо цикл для фільтрації
-        return persons.stream()
-                .filter(person -> {
-                    int age = java.time.Period.between(person.getDateOfBirth(), java.time.LocalDate.now()).getYears();
-                    return age >= minAge && age <= maxAge;
-                })
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public <T extends CulturalEvent> List<T> filterByDate(List<T> events, java.time.LocalDate date) {
-        // Використовуємо цикл для фільтрації
-        return List.copyOf(events).stream()
-                .filter(event -> event.getEventDate().isAfter(date))
-                .toList();
-    }
-
-    @Override
-    public <T extends CulturalEvent> List<T> filterByName(List<T> events, String eventName) {
-        // Використовуємо цикл для фільтрації
-        return events.stream()
-                .filter(event -> event.getEventName().equalsIgnoreCase(eventName))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public <T extends CulturalEvent> List<Person> getAttendees(List<Person> persons, T event) {
-        // Використовуємо цикл для фільтрації
-        return persons.stream()
-                .filter(person -> person.getAttendedEvents().contains(event))
-                .collect(Collectors.toList());
+    public List<CulturalEvent> searchEventsAfterDate(List<CulturalEvent> events, LocalDate date) {
+        List<CulturalEvent> result = new ArrayList<>();
+        for (CulturalEvent event : events) {
+            if (event.getEventDate().isAfter(date)) {
+                result.add(event);
+            }
+        }
+        return result;
     }
 }
+
+
 

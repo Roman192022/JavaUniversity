@@ -1,8 +1,9 @@
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Objects;
 
 
-public  class CulturalEvent implements Comparable<CulturalEvent> {
+public class CulturalEvent implements Comparable<CulturalEvent> {
     protected String eventName;
     protected String eventLocation;
     protected LocalDate eventDate;
@@ -15,12 +16,11 @@ public  class CulturalEvent implements Comparable<CulturalEvent> {
 
     @Override
     public int compareTo(CulturalEvent other) {
-        // Реалізація методу compareTo для сортування за замовчуванням
-        return this.getEventDate().compareTo(other.getEventDate());
+        return this.eventDate.compareTo(other.eventDate);
     }
 
+    public static Comparator<CulturalEvent> EventDateComparator = Comparator.comparing(CulturalEvent::getEventDate);
 
-    // геттери
     public String getEventName() {
         return eventName;
     }
@@ -28,25 +28,22 @@ public  class CulturalEvent implements Comparable<CulturalEvent> {
     public String getEventLocation() {
         return eventLocation;
     }
+
     public LocalDate getEventDate() {
         return eventDate;
     }
 
-
-
-    // сеттери
-
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
+
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
     }
+
     public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
-
-
 
     public void displayEventInfo() {
         System.out.println("Event: " + eventName);
@@ -77,5 +74,8 @@ public  class CulturalEvent implements Comparable<CulturalEvent> {
     }
 
 
-
 }
+
+
+
+

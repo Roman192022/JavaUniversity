@@ -6,11 +6,15 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Concert extends CulturalEvent {
+    @JsonProperty("genre")
     private String genre;
+    @JsonProperty("numberOfPerformers")
     private int numberOfPerformers;
+    @JsonProperty("ticketPrice")
     private int ticketPrice;
 
     public Concert() {
@@ -22,6 +26,31 @@ public class Concert extends CulturalEvent {
         this.numberOfPerformers = numberOfPerformers;
         this.ticketPrice = ticketPrice;
     }
+
+    // геттери
+    public String getGenre() {
+        return this.genre;
+    }
+    public int getNumberOfPerformers() {
+        return this.numberOfPerformers;
+    }
+    public int getTicketPrice() {
+        return this.ticketPrice;
+    }
+
+
+    // сеттери
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+    public void setNumberOfPerformers(int numberOfPerformers) {
+        this.numberOfPerformers = numberOfPerformers;
+    }
+    public void setTicketPrice(int ticketPrice) {
+        this.ticketPrice = ticketPrice;
+    }
+
+
 
     public void announceTicketPrice() {
         System.out.println("Ticket price for the concert: " + ticketPrice);

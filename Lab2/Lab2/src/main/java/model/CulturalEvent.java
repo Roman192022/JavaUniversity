@@ -10,8 +10,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CulturalEvent {
-    protected String eventName;
-    protected String eventLocation;
+    public String eventName;
+    public String eventLocation;
     //@JsonFormat(pattern = "yyyy-MM-dd")
     //protected LocalDate eventDate;
 

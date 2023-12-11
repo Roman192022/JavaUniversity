@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+
 public class JsonSerializer<T> implements Serializer<T> {
     private ObjectMapper objectMapper;
 

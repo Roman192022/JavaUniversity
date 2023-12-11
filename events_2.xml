@@ -1,0 +1,7 @@
+ <Exhibition>
+     <eventName>Art Exhibition</eventName>
+     <eventLocation>Art Gallery</eventLocation>
+     <theme>Renaissance</theme>
+     <curator>Jale Curator</curator>
+     <numberOfArtworks>90</numberOfArtworks>
+ </Exhibition>

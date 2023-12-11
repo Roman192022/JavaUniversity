@@ -13,11 +13,9 @@ import org.example.services.*;
 
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        // Створення об'єктів для тестування
 
         TheatrePerformance theatrePerformance = new TheatrePerformance("Hamlet", "Royal Theatre", "Hamlet", 120, "John Smith");
 

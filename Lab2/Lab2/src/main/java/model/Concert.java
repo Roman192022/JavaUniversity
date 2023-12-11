@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -19,9 +18,9 @@ public class Concert extends CulturalEvent {
 
     public Concert() {
     }
-    public Concert(String eventName, String eventLocation, /*LocalDate eventDate,*/ String genre,
+    public Concert(String eventName, String eventLocation,  String genre,
                    int numberOfPerformers, int ticketPrice) {
-        super(eventName, eventLocation/*, eventDate*/);
+        super(eventName, eventLocation);
         this.genre = genre;
         this.numberOfPerformers = numberOfPerformers;
         this.ticketPrice = ticketPrice;

@@ -1,6 +1,5 @@
 package model;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -19,7 +18,7 @@ public class TheatrePerformance extends CulturalEvent {
 
     public TheatrePerformance() {
     }
-    public TheatrePerformance(String eventName, String eventLocation, /*LocalDate eventDate,*/
+    public TheatrePerformance(String eventName, String eventLocation,
                               String playTitle, int durationInMinutes, String mainActor) {
         super(eventName, eventLocation);
         this.playTitle = playTitle;

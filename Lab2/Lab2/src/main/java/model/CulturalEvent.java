@@ -1,6 +1,5 @@
 package model;
 
-//import java.time.LocalDate;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -12,15 +11,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CulturalEvent {
     public String eventName;
     public String eventLocation;
-    //@JsonFormat(pattern = "yyyy-MM-dd")
-    //protected LocalDate eventDate;
 
     public CulturalEvent() {
     }
-    public CulturalEvent(String eventName, String eventLocation/*, LocalDate eventDate*/) {
+    public CulturalEvent(String eventName, String eventLocation) {
         this.eventName = eventName;
         this.eventLocation = eventLocation;
-        //this.eventDate = eventDate;
     }
 
 
@@ -32,9 +28,7 @@ public class CulturalEvent {
     public String getEventLocation() {
         return eventLocation;
     }
-    /*public LocalDate getEventDate() {
-        return eventDate;
-    }*/
+
 
 
 
@@ -46,23 +40,18 @@ public class CulturalEvent {
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
     }
-    /*public void setEventDate(LocalDate eventDate) {
-        this.eventDate = eventDate;
-    }*/
 
 
 
     public void displayEventInfo() {
         System.out.println("Event: " + eventName);
         System.out.println("Location: " + eventLocation);
-        //System.out.println("Date: " + eventDate);
     }
 
     @Override
     public String toString() {
         return  "   eventName='" + eventName + "',\n" +
-                "   eventLocation='" + eventLocation/* + "',\n" +
-                "   eventDate=" + eventDate*/ + "\n}";
+                "   eventLocation='" + eventLocation + "\n}";
     }
 
     @Override
@@ -71,13 +60,12 @@ public class CulturalEvent {
         if (o == null || getClass() != o.getClass()) return false;
         CulturalEvent that = (CulturalEvent) o;
         return Objects.equals(eventName, that.eventName) &&
-                Objects.equals(eventLocation, that.eventLocation)/* &&
-                Objects.equals(eventDate, that.eventDate)*/;
+                Objects.equals(eventLocation, that.eventLocation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventName, eventLocation/*, eventDate*/);
+        return Objects.hash(eventName, eventLocation);
     }
 }
 

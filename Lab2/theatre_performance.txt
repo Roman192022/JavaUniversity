@@ -1,5 +1,0 @@
-eventName=Hamlet
-eventLocation=Royal Theatre
-playTitle=Hamlet
-durationInMinutes=120
-mainActor=John Smith

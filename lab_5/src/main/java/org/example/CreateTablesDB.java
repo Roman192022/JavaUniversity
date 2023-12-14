@@ -42,7 +42,7 @@ public class CreateTablesDB {
             // Create Person table
             statement.execute("CREATE TABLE Person (" +
                     "personID SERIAL PRIMARY KEY," +
-                    "name VARCHAR(255), " +
+                    "name VARCHAR(255)  NOT NULL, " +
                     "dateOfBirth DATE," +
                     "email VARCHAR(255))");
 

@@ -1,0 +1,7 @@
+<TheatrePerformance>
+  <eventName>Hamlet</eventName>
+  <eventLocation>Royal Theatre</eventLocation>
+  <playTitle>Hamlet</playTitle>
+  <durationInMinutes>120</durationInMinutes>
+  <mainActor>John Smith</mainActor>
+</TheatrePerformance>

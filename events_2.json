@@ -2,6 +2,6 @@
     "eventName": "Classical music",
     "eventLocation": "Concert Hall",
     "genre": "Classical music",
-    "numberOfPerformers": 3,
-    "ticketPrice": 40
+    "numberOfPerformers": 15,
+    "ticketPrice": 200
   }

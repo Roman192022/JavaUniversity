@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.io.File;
 
 public class JsonSerializer<T> implements Serializer<T> {
     private ObjectMapper objectMapper;
@@ -19,14 +20,13 @@ public class JsonSerializer<T> implements Serializer<T> {
     @Override
     public void serialize(T entity, String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            String jsonContent = objectMapper.writeValueAsString(entity);
-            writer.write(jsonContent);
+            objectMapper.writeValue(new File(filename), entity);
         }
     }
 
     @Override
     public T deserialize(String filename, Class<T> entityType) throws IOException {
-        String jsonContent = new String(Files.readAllBytes(Paths.get(filename)));
-        return objectMapper.readValue(jsonContent, entityType);
+
+        return objectMapper.readValue(new File(filename), entityType);
     }
 }

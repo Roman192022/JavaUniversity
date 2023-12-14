@@ -1,13 +1,12 @@
 import model.CulturalEvent;
 import model.Concert;
 import model.Exhibition;
-import model.CulturalEvent;
-import model.Concert;
-import model.Exhibition;
 import model.TheatrePerformance;
 import org.example.services.Serializer;
 import org.example.services.JsonSerializer;
 import org.example.services.XmlSerializer;
+import org.example.services.TxtSerializer;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.example.services.*;
 
@@ -54,5 +53,23 @@ public class Main {
         }
 
 
+
+        // Серіалізація та десеріалізація в TXT
+        try {
+            // Серіалізація
+            TxtSerializer<TheatrePerformance> txtSerializerTheatre = new TxtSerializer<>();
+            txtSerializerTheatre.serialize(theatrePerformance, "D:\\University\\3 course\\V semester\\Java\\events_1.txt");
+
+            // Десеріалізація
+            TxtSerializer<Concert> txtSerializerConcert = new TxtSerializer<>();
+            Concert txtDeserializedConcert = txtSerializerConcert.deserialize("D:\\University\\3 course\\V semester\\Java\\events_2.txt", Concert.class);
+            System.out.println("TXT Deserialized Concert: " + txtDeserializedConcert);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
+
 }

@@ -1,19 +1,19 @@
 package org.example.services;
 
-import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 public class XmlSerializer<T> implements Serializer<T> {
     private XmlMapper xmlMapper;
 
     public XmlSerializer() {
-        this.xmlMapper = (XmlMapper) new XmlMapper().enable(SerializationFeature.INDENT_OUTPUT);
+        this.xmlMapper = (XmlMapper) new XmlMapper().enable(com.fasterxml.jackson.databind.SerializationFeature.INDENT_OUTPUT);
     }
 
     @Override
@@ -26,7 +26,8 @@ public class XmlSerializer<T> implements Serializer<T> {
 
     @Override
     public T deserialize(String filename, Class<T> entityType) throws IOException {
-        String xmlContent = new String(Files.readAllBytes(Paths.get(filename)));
+        String xmlContent = new String(Files.readAllBytes(Path.of(filename)));
         return xmlMapper.readValue(xmlContent, entityType);
     }
 }
+
